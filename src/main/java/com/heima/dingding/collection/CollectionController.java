@@ -23,6 +23,7 @@ public class CollectionController {
      */
     @PostMapping("/{id}")
     public Result postCollection(@RequestBody CollectionDto dto) {
+
         return Result.success();
     }
 
