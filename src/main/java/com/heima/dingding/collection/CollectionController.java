@@ -3,9 +3,9 @@ package com.heima.dingding.collection;
 import com.heima.dingding.pojo.dto.CollectionDto;
 import com.heima.dingding.pojo.entity.Collection;
 import com.heima.dingding.pojo.result.Result;
-import com.heima.dingding.pojo.vo.CollectionVO;
 import com.heima.dingding.service.CollectionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,9 +21,19 @@ public class CollectionController {
      * @param dto
      * @return
      */
-    @PostMapping("/{id}")
+    @PostMapping
     public Result postCollection(@RequestBody CollectionDto dto) {
+        Collection collection = new Collection();
+        BeanUtils.copyProperties(dto, collection);
+        collectionService.updateById(collection);
+        return Result.success();
+    }
 
+    @PutMapping()
+    public Result addCollection(@RequestBody CollectionDto dto) {
+        Collection collection = new Collection();
+        BeanUtils.copyProperties(dto, collection);
+        collectionService.save(collection);
         return Result.success();
     }
 

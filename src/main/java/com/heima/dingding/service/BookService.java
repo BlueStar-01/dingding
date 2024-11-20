@@ -3,6 +3,8 @@ package com.heima.dingding.service;
 import com.heima.dingding.pojo.entity.Book;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author 碧蓝小新星
 * @description 针对表【book(书籍信息表)】的数据库操作Service
@@ -10,4 +12,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BookService extends IService<Book> {
 
+    /**
+     * 条件查询
+     * @param dto
+     * @return
+     */
+    List listByBook(Book dto);
 }

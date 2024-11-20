@@ -8,12 +8,14 @@ import java.io.Serializable;
 
 import java.util.Date;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 /**
 * 书籍信息表
 * @TableName book
 */
+@Data
 public class Book implements Serializable {
 
     /**
