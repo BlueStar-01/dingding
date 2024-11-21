@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CollectionController {
 
-    private final CollectionService collectionService;
+    private  CollectionService collectionService;
 
     /**
      * 修改

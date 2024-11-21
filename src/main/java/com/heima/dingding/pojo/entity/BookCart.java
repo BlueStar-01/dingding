@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
 * 购物内容表
@@ -17,35 +16,29 @@ public class BookCart implements Serializable {
     * 
     */
     @NotNull(message="[]不能为空")
-    @ApiModelProperty("")
     private Long id;
     /**
     * 
     */
     @NotNull(message="[]不能为空")
-    @ApiModelProperty("")
     private Long bookId;
     /**
     * 
     */
     @NotNull(message="[]不能为空")
-    @ApiModelProperty("")
     private Long cartId;
     /**
     * 记录书的数量
     */
     @NotNull(message="[记录书的数量]不能为空")
-    @ApiModelProperty("记录书的数量")
     private Integer number;
     /**
     * 
     */
-    @ApiModelProperty("")
     private Date createTime;
     /**
     * 
     */
-    @ApiModelProperty("")
     private Date updateTime;
 
     /**

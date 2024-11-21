@@ -5,8 +5,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
 * 购物车表
 * @TableName shopping_cart
@@ -17,23 +15,19 @@ public class ShoppingCart implements Serializable {
     * 购物车id
     */
     @NotNull(message="[购物车id]不能为空")
-    @ApiModelProperty("购物车id")
     private Long id;
     /**
     * 关联的用户id
     */
     @NotNull(message="[关联的用户id]不能为空")
-    @ApiModelProperty("关联的用户id")
     private Long userId;
     /**
     * 
     */
-    @ApiModelProperty("")
     private Date createTime;
     /**
     * 
     */
-    @ApiModelProperty("")
     private Date updateTime;
 
     /**

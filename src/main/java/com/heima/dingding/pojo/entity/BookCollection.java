@@ -3,7 +3,6 @@ package com.heima.dingding.pojo.entity;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
 * 记录了收藏集里的书
@@ -15,29 +14,24 @@ public class BookCollection implements Serializable {
     * 关联id
     */
     @NotNull(message="[关联id]不能为空")
-    @ApiModelProperty("关联id")
     private Long id;
     /**
     * 书籍id
     */
     @NotNull(message="[书籍id]不能为空")
-    @ApiModelProperty("书籍id")
     private Long bookId;
     /**
     * 收藏夹id
     */
     @NotNull(message="[收藏夹id]不能为空")
-    @ApiModelProperty("收藏夹id")
     private Long collectionId;
     /**
     * 创建时间
     */
-    @ApiModelProperty("创建时间")
     private Date createId;
     /**
     * 
     */
-    @ApiModelProperty("")
     private Date updateId;
 
     /**

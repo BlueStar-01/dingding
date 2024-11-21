@@ -2,6 +2,7 @@ package com.heima.dingding.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.heima.dingding.pojo.entity.Book;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author 碧蓝小新星
@@ -9,6 +10,7 @@ import com.heima.dingding.pojo.entity.Book;
 * @createDate 2024-11-19 22:36:41
 * @Entity com.heima.dingding.domian.Book
 */
+@Mapper
 public interface BookMapper extends BaseMapper<Book> {
 
 }

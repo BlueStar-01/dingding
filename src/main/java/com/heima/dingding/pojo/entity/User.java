@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -20,14 +19,12 @@ public class User implements Serializable {
     * 用户ID
     */
     @NotNull(message="[用户ID]不能为空")
-    @ApiModelProperty("用户ID")
     private Long id;
     /**
     * 用户账号信息
     */
     @NotBlank(message="[用户账号信息]不能为空")
     @Size(max= 20,message="编码长度不能超过20")
-    @ApiModelProperty("用户账号信息")
     @Length(max= 20,message="编码长度不能超过20")
     private String userName;
     /**
@@ -35,44 +32,37 @@ public class User implements Serializable {
     */
     @NotBlank(message="[用户密码md5加密]不能为空")
     @Size(max= 32,message="编码长度不能超过32")
-    @ApiModelProperty("用户密码md5加密")
     @Length(max= 32,message="编码长度不能超过32")
     private String password;
     /**
     * 关联qq
     */
     @Size(max= 40,message="编码长度不能超过40")
-    @ApiModelProperty("关联qq")
     @Length(max= 40,message="编码长度不能超过40")
     private String qqId;
     /**
     * 用户昵称
     */
     @Size(max= 20,message="编码长度不能超过20")
-    @ApiModelProperty("用户昵称")
     @Length(max= 20,message="编码长度不能超过20")
     private String nickname;
     /**
     * 头像照片链接
     */
     @Size(max= 500,message="编码长度不能超过500")
-    @ApiModelProperty("头像照片链接")
     @Length(max= 500,message="编码长度不能超过500")
     private String avatarImg;
     /**
     * 性别（男，女）
     */
-    @ApiModelProperty("性别（男，女）")
     private Object sex;
     /**
     * 创建时间
     */
-    @ApiModelProperty("创建时间")
     private Date createTime;
     /**
     * 更新时间
     */
-    @ApiModelProperty("更新时间")
     private Date updateTime;
 
     /**
