@@ -9,11 +9,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/Collection")
+@RequestMapping("/collection")
 @RequiredArgsConstructor
 public class CollectionController {
 
-    private  CollectionService collectionService;
+    private final CollectionService collectionService;
 
     /**
      * 修改
@@ -29,7 +29,7 @@ public class CollectionController {
         return Result.success();
     }
 
-    @PutMapping()
+    @PutMapping
     public Result addCollection(@RequestBody CollectionDto dto) {
         Collection collection = new Collection();
         BeanUtils.copyProperties(dto, collection);
