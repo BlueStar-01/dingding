@@ -10,11 +10,6 @@ import javax.validation.constraints.Size;
 @Data
 public class CollectionDto {
     /**
-     *
-     */
-    @NotNull(message="[]不能为空")
-    private Long id;
-    /**
      * 用户id
      */
     @NotNull(message="[用户id]不能为空")
