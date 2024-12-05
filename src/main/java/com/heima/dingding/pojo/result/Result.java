@@ -36,8 +36,9 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    public static <T> Result<T> success(String msg, T object) {
+    public static <T> Result<T> success(String msg,T object) {
         Result<T> result = new Result<T>();
+        result.msg = msg;
         result.data = object;
         result.code = 1;
         return result;

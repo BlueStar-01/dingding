@@ -24,6 +24,7 @@ public class BookDto {
     private String coverImg;
     /**
      * 书籍的详细描述
+     * text类型无长度限制
      */
     @javax.validation.constraints.Size(max = -1, message = "编码长度不能超过-1")
     @Length(max = -1, message = "编码长度不能超过-1")
