@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+mybatis-plus:
+  configuration:
+    log-impl: ${dingding.mybatis-plus.configuration.log-impl}
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    username: ${dingding.datasource.username}
+    password: ${dingding.datasource.password}
+    url: ${dingding.datasource.url}
+    driver-class-name: ${dingding.datasource.driver-class-name}
+
+logging:
+  level:
+    com:
+      sky:
+        controller: ${dingding.logging.level.com.sky.controller}
+        mapper: ${dingding.logging.level.com.sky.mapper}
+        service: ${dingding.logging.level.com.sky.service}
+jwt:
+  user-secret-kry: ${dingding.jwt.user-secret-kry}
+  user-t-tL: ${dingding.jwt.user-t-tL}
+  user-token-name: ${dingding.jwt.user-token-name}
