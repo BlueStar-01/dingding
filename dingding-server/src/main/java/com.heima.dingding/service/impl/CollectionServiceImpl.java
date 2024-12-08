@@ -2,8 +2,8 @@ package com.heima.dingding.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingding.mapper.CollectionMapper;
-import com.heima.dingding.pojo.entity.Collection;
 import com.heima.dingding.service.CollectionService;
+import com.itheima.dingdign.pojo.entity.Collection;
 import org.springframework.stereotype.Service;
 
 /**

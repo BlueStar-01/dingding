@@ -1,7 +1,7 @@
 package com.heima.dingding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.heima.dingding.pojo.entity.ShoppingCart;
+import com.itheima.dingdign.pojo.entity.ShoppingCart;
 
 /**
 * @author 碧蓝小新星

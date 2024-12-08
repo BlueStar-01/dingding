@@ -2,10 +2,10 @@ package com.heima.dingding.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingding.mapper.UserMapper;
-import com.heima.dingding.pojo.dto.UserLoginDTO;
-import com.heima.dingding.pojo.entity.User;
-import com.heima.dingding.pojo.vo.UserLoginVO;
 import com.heima.dingding.service.UserService;
+import com.itheima.dingdign.pojo.dto.UserLoginDTO;
+import com.itheima.dingdign.pojo.entity.User;
+import com.itheima.dingdign.pojo.vo.UserLoginVO;
 import org.springframework.stereotype.Service;
 
 /**

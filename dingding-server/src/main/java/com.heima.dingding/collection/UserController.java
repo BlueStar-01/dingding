@@ -1,9 +1,9 @@
 package com.heima.dingding.collection;
 
-import com.heima.dingding.pojo.dto.UserLoginDTO;
-import com.heima.dingding.pojo.vo.UserLoginVO;
 import com.heima.dingding.result.Result;
 import com.heima.dingding.service.UserService;
+import com.itheima.dingdign.pojo.dto.UserLoginDTO;
+import com.itheima.dingdign.pojo.vo.UserLoginVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

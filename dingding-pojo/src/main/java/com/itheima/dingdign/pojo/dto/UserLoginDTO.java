@@ -1,4 +1,4 @@
-package com.heima.dingding.pojo.dto;
+package com.itheima.dingdign.pojo.dto;
 
 import lombok.Data;
 

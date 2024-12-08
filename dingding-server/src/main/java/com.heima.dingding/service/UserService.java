@@ -1,9 +1,9 @@
 package com.heima.dingding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.heima.dingding.pojo.dto.UserLoginDTO;
-import com.heima.dingding.pojo.entity.User;
-import com.heima.dingding.pojo.vo.UserLoginVO;
+import com.itheima.dingdign.pojo.dto.UserLoginDTO;
+import com.itheima.dingdign.pojo.entity.User;
+import com.itheima.dingdign.pojo.vo.UserLoginVO;
 
 /**
 * @author 碧蓝小新星

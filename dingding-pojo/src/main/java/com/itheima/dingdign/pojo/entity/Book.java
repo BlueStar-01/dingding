@@ -1,4 +1,4 @@
-package com.heima.dingding.pojo.entity;
+package com.itheima.dingdign.pojo.entity;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

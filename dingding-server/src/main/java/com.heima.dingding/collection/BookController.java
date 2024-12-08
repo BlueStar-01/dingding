@@ -1,9 +1,9 @@
 package com.heima.dingding.collection;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.heima.dingding.pojo.entity.Book;
 import com.heima.dingding.result.Result;
 import com.heima.dingding.service.BookService;
+import com.itheima.dingdign.pojo.entity.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,11 +1,11 @@
 package com.heima.dingding.collection;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.heima.dingding.pojo.dto.CollectionDto;
-import com.heima.dingding.pojo.entity.Collection;
-import com.heima.dingding.pojo.vo.CollectionVO;
 import com.heima.dingding.result.Result;
 import com.heima.dingding.service.CollectionService;
+import com.itheima.dingdign.pojo.dto.CollectionDto;
+import com.itheima.dingdign.pojo.entity.Collection;
+import com.itheima.dingdign.pojo.vo.CollectionVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;

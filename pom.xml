@@ -16,6 +16,7 @@
     <modules>
         <module>dingding-common</module>
         <module>dingding-server</module>
+        <module>dingding-pojo</module>
     </modules>
     <properties>
         <java.version>17</java.version>

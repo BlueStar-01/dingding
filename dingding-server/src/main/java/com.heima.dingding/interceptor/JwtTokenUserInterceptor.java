@@ -25,14 +25,20 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             //当前拦截到的不是动态方法，直接放行
             return true;
         }
-        //获得token
-        String token = request.getHeader(jwtTokenProperty.getUserTokenName());
-        //解析token（如果报错，则换回401）
-        Claims claims = JwtUtil.parseJWT(jwtTokenProperty.getUserSecretKry(), token);
-        //获得用户ID
-        Long userid = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
-        //存入当前请求的线程池中。
-        BaseContext.setCurrentId(userid);
+        try {
+            //获得token
+            String token = request.getHeader(jwtTokenProperty.getUserTokenName());
+            //解析token（如果报错，则换回401）
+            Claims claims = JwtUtil.parseJWT(jwtTokenProperty.getUserSecretKry(), token);
+            //获得用户ID
+            Long userid = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
+            //存入当前请求的线程池中。
+            BaseContext.setCurrentId(userid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(401);
+            return false;
+        }
         return true;
     }
 }

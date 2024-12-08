@@ -1,7 +1,7 @@
 package com.heima.dingding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.heima.dingding.pojo.entity.Collection;
+import com.itheima.dingdign.pojo.entity.Collection;
 
 /**
 * @author 碧蓝小新星

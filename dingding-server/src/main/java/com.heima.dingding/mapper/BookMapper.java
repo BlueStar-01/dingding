@@ -1,7 +1,7 @@
 package com.heima.dingding.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.heima.dingding.pojo.entity.Book;
+import com.itheima.dingdign.pojo.entity.Book;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

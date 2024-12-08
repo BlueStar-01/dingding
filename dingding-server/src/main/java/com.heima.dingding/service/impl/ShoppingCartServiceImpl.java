@@ -2,8 +2,8 @@ package com.heima.dingding.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingding.mapper.ShoppingCartMapper;
-import com.heima.dingding.pojo.entity.ShoppingCart;
 import com.heima.dingding.service.ShoppingCartService;
+import com.itheima.dingdign.pojo.entity.ShoppingCart;
 import org.springframework.stereotype.Service;
 
 /**

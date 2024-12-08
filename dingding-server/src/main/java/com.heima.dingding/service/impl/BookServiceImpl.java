@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingding.mapper.BookMapper;
-import com.heima.dingding.pojo.entity.Book;
 import com.heima.dingding.service.BookService;
+import com.itheima.dingdign.pojo.entity.Book;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

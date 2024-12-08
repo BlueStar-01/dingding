@@ -1,4 +1,4 @@
-package com.heima.dingding.pojo.entity;
+package com.itheima.dingdign.pojo.entity;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

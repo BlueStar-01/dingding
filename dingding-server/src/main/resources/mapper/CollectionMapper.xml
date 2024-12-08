@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heima.dingding.mapper.CollectionMapper">
 
-    <resultMap id="BaseResultMap" type="com.heima.dingding.pojo.entity.Collection">
+    <resultMap id="BaseResultMap" type="com.itheima.dingdign.pojo.entity.Collection">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
