@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/dingding-common.iml" filepath="$PROJECT_DIR$/dingding-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/test/test.iml" filepath="$PROJECT_DIR$/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dingding-server.iml" filepath="$PROJECT_DIR$/dingding-server.iml" />
     </modules>
   </component>
 </project>
