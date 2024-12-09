@@ -14,7 +14,6 @@ public class JwtUtil {
     /**
      * 生成jwt
      * 使用Hs256算法, 私匙使用固定秘钥
-     *
      * @param secretKey jwt秘钥
      * @param ttlMillis jwt过期时间(毫秒)
      * @param claims    设置的信息
@@ -27,7 +26,6 @@ public class JwtUtil {
         // 生成JWT的时间
         long expMillis = System.currentTimeMillis() + ttlMillis;
         Date exp = new Date(expMillis);
-
         // 设置jwt的body
         JwtBuilder builder = Jwts.builder()
                 // 如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
@@ -36,7 +34,6 @@ public class JwtUtil {
                 .signWith(signatureAlgorithm, secretKey.getBytes(StandardCharsets.UTF_8))
                 // 设置过期时间
                 .setExpiration(exp);
-
         return builder.compact();
     }
 
@@ -52,7 +49,6 @@ public class JwtUtil {
         Claims claims = Jwts.parser()
                 // 设置签名的秘钥1
                 .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
-                .build()
                 // 设置需要解析的jwt
                 .parseClaimsJws(token).getBody();
         return claims;

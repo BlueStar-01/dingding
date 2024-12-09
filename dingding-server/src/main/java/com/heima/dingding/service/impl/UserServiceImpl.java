@@ -16,6 +16,7 @@ import com.heima.dingding.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.HashMap;
@@ -44,6 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @param loginDTO
      * @return
      */
+    @Transactional
     @Override
     public UserLoginVO login(UserLoginDTO loginDTO) {
         //log.info("登录信息：{}",loginDTO);
@@ -52,7 +54,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String password = loginDTO.getPassword();
         //先查询用户
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda()
-                .select(User::getId, User::getUsername, User::getPassword)
                 .eq(User::getUsername, username);
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
@@ -82,25 +83,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @param loginDTO
      * @return
      */
+    @Transactional
     @Override
     public UserLoginVO register(UserLoginDTO loginDTO) {
-        //log.info("登录信息：{}",loginDTO);
-        //获得数据
-        String username = loginDTO.getUsername();
-        String password = loginDTO.getPassword();
+        log.info("注册信息：{}", loginDTO);
         //先查询用户
         LambdaQueryWrapper<User> queryWrapper = new QueryWrapper<User>().lambda()
-                .select(User::getId, User::getUsername, User::getPassword)
-                .eq(User::getUsername, username);
-        User user = userMapper.selectOne(queryWrapper);
-        if (user != null) {
+                .eq(User::getUsername, loginDTO.getUsername());
+        Long count = userMapper.selectCount(queryWrapper);
+        if (count > 0) {
             throw new PasswordErrorException(MessageConstant.ACCOUNT_ALREADY_EXISTS);
         }
 
         //添加进数据库
-        user = new User();
-        user.setUsername(username);
-        user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        User user = User.builder()
+                .username(loginDTO.getUsername())
+                .password(DigestUtils.md5DigestAsHex(loginDTO.getPassword().getBytes()))
+                .build();
+        log.info("user:{}", user);
         userMapper.insert(user);
 
         //生成token
