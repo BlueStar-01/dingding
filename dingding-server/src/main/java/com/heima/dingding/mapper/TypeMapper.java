@@ -2,6 +2,7 @@ package com.heima.dingding.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.heima.dingdign.pojo.entity.Type;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.heima.dingdign.pojo.entity.Type;
  * @author author
  * @since 2024-12-08
  */
+@Mapper
 public interface TypeMapper extends BaseMapper<Type> {
 
 }
