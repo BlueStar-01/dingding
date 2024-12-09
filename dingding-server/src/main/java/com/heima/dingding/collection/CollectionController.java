@@ -2,9 +2,10 @@ package com.heima.dingding.collection;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.heima.dingdign.pojo.dto.CollectionDto;
+import com.heima.dingdign.pojo.entity.Collection;
 import com.heima.dingdign.pojo.vo.CollectionVO;
 import com.heima.dingding.result.Result;
-import com.heima.dingding.service.CollectionService;
+import com.heima.dingding.service.ICollectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CollectionController {
 
-    private final CollectionService collectionService;
+    private final ICollectionService collectionService;
 
     /**
      * 查询当前用户的所有的收藏夹
@@ -41,7 +42,6 @@ public class CollectionController {
 
     /**
      * 修改收藏夹
-     *
      * @param dto
      * @return
      */
@@ -55,7 +55,6 @@ public class CollectionController {
 
     /**
      * 添加收藏夹
-     *
      * @param dto
      * @return
      */

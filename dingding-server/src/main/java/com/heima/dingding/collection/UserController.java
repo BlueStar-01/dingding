@@ -3,7 +3,7 @@ package com.heima.dingding.collection;
 import com.heima.dingdign.pojo.dto.UserLoginDTO;
 import com.heima.dingdign.pojo.vo.UserLoginVO;
 import com.heima.dingding.result.Result;
-import com.heima.dingding.service.UserService;
+import com.heima.dingding.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
-    private final UserService userService;
+    private final IUserService userService;
 
     @PostMapping("/login")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO loginDTO) {

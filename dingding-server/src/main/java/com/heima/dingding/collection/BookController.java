@@ -1,8 +1,9 @@
 package com.heima.dingding.collection;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingding.result.Result;
-import com.heima.dingding.service.BookService;
+import com.heima.dingding.service.IBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("/book")
 @RequiredArgsConstructor
 public class BookController {
-    private final BookService bookService;
+    private final IBookService bookService;
 
     /**
      * 分页查询书籍
