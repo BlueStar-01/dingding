@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserController {
     private final IUserService userService;
-
     /**
      * 登录请求
      *
@@ -30,7 +29,6 @@ public class UserController {
         log.info("登录成功{}", userLoginVO);
         return Result.success(userLoginVO);
     }
-
     /**
      * 注册
      *
@@ -43,6 +41,4 @@ public class UserController {
         log.info("注册成功{}", userLoginVO);
         return Result.success(userLoginVO);
     }
-
-
 }

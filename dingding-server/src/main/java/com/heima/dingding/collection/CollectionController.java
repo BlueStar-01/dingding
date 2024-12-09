@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.heima.dingdign.pojo.dto.CollectionDto;
 import com.heima.dingdign.pojo.entity.Collection;
 import com.heima.dingdign.pojo.vo.CollectionVO;
+import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.result.Result;
 import com.heima.dingding.service.ICollectionService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,10 @@ public class CollectionController {
     /**
      * 查询当前用户的所有的收藏夹
      */
-    @GetMapping("/userId/{userId}")
-    public Result<List<CollectionVO>> getCollection(@PathVariable Long userId) {
+    @GetMapping("/list")
+    public Result<List<CollectionVO>> getCollection() {
+        //从线程变量中获得用户id
+        Long userId = BaseContext.getCurrentId();
         //从数据库查询当前用户的收藏夹信息,按照修改时间。
         List<Collection> list = collectionService.list(
                 new LambdaQueryWrapper<Collection>().
@@ -42,6 +45,7 @@ public class CollectionController {
 
     /**
      * 修改收藏夹
+     *
      * @param dto
      * @return
      */
@@ -55,6 +59,7 @@ public class CollectionController {
 
     /**
      * 添加收藏夹
+     *
      * @param dto
      * @return
      */
@@ -66,29 +71,30 @@ public class CollectionController {
         return Result.success();
     }
 
+
     /**
-     * 根据id获得收藏夹
+     * 获得收藏夹详细信息
      *
-     * @param id
+     * @param collectionId
      * @return
      */
-    @GetMapping("/{id}")
-    public Result<Collection> getCollection(@PathVariable long id) {
-        Collection byId = collectionService.getById(id);
+    @GetMapping("/{collectionId}")
+    public Result<Collection> getCollection(@PathVariable long collectionId) {
+        Collection byId = collectionService.getById(collectionId);
         return Result.success(byId);
     }
 
     /**
-     * 根据id删除收藏夹
+     * 根据收藏夹id删除收藏夹
      *
-     * @param id
+     * @param collectionId
      * @return
      */
-    @DeleteMapping("/{id}")
-    public Result delCollection(@PathVariable long id) {
-        Collection byId = collectionService.getById(id);
+    @DeleteMapping("/{collectionId}")
+    public Result delCollection(@PathVariable long collectionId) {
+        Collection byId = collectionService.getById(collectionId);
         if (byId != null) {
-            collectionService.removeById(id);
+            collectionService.removeById(collectionId);
         }
         return Result.success();
     }

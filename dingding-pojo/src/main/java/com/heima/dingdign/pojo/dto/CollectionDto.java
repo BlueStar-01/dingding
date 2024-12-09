@@ -4,17 +4,11 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data
 public class CollectionDto implements Serializable {
-    /**
-     * 用户id
-     */
-    @NotNull(message="[用户id]不能为空")
-    private Long userId;
     /**
      * 收藏夹名
      */

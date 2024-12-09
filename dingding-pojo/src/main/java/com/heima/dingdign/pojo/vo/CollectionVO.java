@@ -35,11 +35,11 @@ public class CollectionVO {
     @Length(max= 500,message="编码长度不能超过500")
     private String coverImg;
     /**
-     *
+     *创建时间
      */
     private Date createTime;
     /**
-     *
+     *更新时间
      */
     private Date updateTime;
 }
