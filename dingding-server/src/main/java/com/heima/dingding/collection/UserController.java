@@ -18,9 +18,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final IUserService userService;
 
+    /**
+     * 登录请求
+     *
+     * @param loginDTO
+     * @return
+     */
     @PostMapping("/login")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO loginDTO) {
         UserLoginVO userLoginVO = userService.login(loginDTO);
+        log.info("登录成功{}", userLoginVO);
+        return Result.success(userLoginVO);
+    }
+
+    /**
+     * 注册
+     *
+     * @param loginDTO
+     * @return
+     */
+    @PostMapping("/register")
+    public Result<UserLoginVO> register(@RequestBody UserLoginDTO loginDTO) {
+        UserLoginVO userLoginVO = userService.register(loginDTO);
+        log.info("注册成功{}", userLoginVO);
         return Result.success(userLoginVO);
     }
 
