@@ -5,7 +5,7 @@
       <TemplateContext>
         <option name="generateConfig">
           <GenerateConfig>
-            <option name="annotationType" value="NONE" />
+            <option name="annotationType" value="MYBATIS_PLUS3" />
             <option name="basePackage" value="generator" />
             <option name="basePath" value="src/main/java" />
             <option name="classNameStrategy" value="camel" />
@@ -15,7 +15,7 @@
             <option name="ignoreFieldSuffix" value="" />
             <option name="ignoreTablePrefix" value="" />
             <option name="ignoreTableSuffix" value="" />
-            <option name="moduleName" value="dingding" />
+            <option name="moduleName" value="dingding-server" />
             <option name="modulePath" value="$PROJECT_DIR$" />
             <option name="moduleUIInfoList">
               <list>
@@ -61,7 +61,6 @@
                 </ModuleInfoGo>
               </list>
             </option>
-            <option name="needToStringHashcodeEquals" value="true" />
             <option name="needsModel" value="false" />
             <option name="relativePackage" value="domain" />
             <option name="superClass" value="" />
@@ -80,12 +79,24 @@
                   <option name="tableName" value="book_collection" />
                 </TableUIInfo>
                 <TableUIInfo>
+                  <option name="className" value="Chapter" />
+                  <option name="tableName" value="chapter" />
+                </TableUIInfo>
+                <TableUIInfo>
                   <option name="className" value="Collection" />
                   <option name="tableName" value="collection" />
                 </TableUIInfo>
                 <TableUIInfo>
-                  <option name="className" value="ShoppingCart" />
-                  <option name="tableName" value="shopping_cart" />
+                  <option name="className" value="Comment" />
+                  <option name="tableName" value="comment" />
+                </TableUIInfo>
+                <TableUIInfo>
+                  <option name="className" value="Order" />
+                  <option name="tableName" value="order" />
+                </TableUIInfo>
+                <TableUIInfo>
+                  <option name="className" value="Type" />
+                  <option name="tableName" value="type" />
                 </TableUIInfo>
                 <TableUIInfo>
                   <option name="className" value="User" />
@@ -97,7 +108,7 @@
             <option name="useLombokPlugin" value="true" />
           </GenerateConfig>
         </option>
-        <option name="moduleName" value="dingding" />
+        <option name="moduleName" value="dingding-server" />
         <option name="projectPath" value="$PROJECT_DIR$" />
         <option name="templateName" value="mybatis-plus3" />
       </TemplateContext>

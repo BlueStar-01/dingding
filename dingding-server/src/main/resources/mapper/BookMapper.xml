@@ -1,27 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heima.dingding.mapper.BookMapper">
 
-    <resultMap id="BaseResultMap" type="com.itheima.dingdign.pojo.entity.Book">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="coverImg" column="cover_img" jdbcType="VARCHAR"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="isbn" column="ISBN" jdbcType="VARCHAR"/>
-            <result property="author" column="author" jdbcType="VARCHAR"/>
-            <result property="publishing" column="publishing" jdbcType="VARCHAR"/>
-            <result property="publishingDate" column="publishing_date" jdbcType="DATE"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="price" column="price" jdbcType="INTEGER"/>
-    </resultMap>
-
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,name,cover_img,
-        description,ISBN,author,
-        publishing,publishing_date,create_time,
-        update_time,price
+        id, name, cover_img, description, author, publishing, publishing_date, create_time, update_time, price, type_id, is_new, rating
     </sql>
+
 </mapper>
