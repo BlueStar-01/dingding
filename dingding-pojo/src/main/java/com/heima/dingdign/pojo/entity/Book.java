@@ -83,6 +83,4 @@ public class Book implements Serializable {
     @ApiModelProperty(value = "平均评分")
     @TableField("rating")
     private BigDecimal rating;
-
-
 }

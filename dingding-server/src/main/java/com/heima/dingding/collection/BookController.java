@@ -1,6 +1,7 @@
 package com.heima.dingding.collection;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.heima.dingdign.pojo.dto.BookDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingding.result.Result;
 import com.heima.dingding.service.IBookService;
@@ -14,6 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final IBookService bookService;
+
+    /**
+     * 添加书籍
+     * @param book
+     * @return
+     */
+    @PutMapping("/add")
+    public Result addBook(@RequestBody BookDto book) {
+        bookService.addBook(book);
+        return Result.success();
+    }
 
     /**
      * 分页查询书籍
@@ -52,4 +64,7 @@ public class BookController {
         Book book = bookService.getById(bookId);
         return book != null ? Result.success(book) : Result.error("不存在的书籍");
     }
+
+
+
 }

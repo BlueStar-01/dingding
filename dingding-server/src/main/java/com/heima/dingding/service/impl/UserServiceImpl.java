@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingdign.pojo.dto.UserLoginDTO;
 import com.heima.dingdign.pojo.entity.User;
 import com.heima.dingdign.pojo.vo.UserLoginVO;
+import com.heima.dingding.constant.JwtClaimsConstant;
 import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.exception.AccountNotFoundException;
 import com.heima.dingding.exception.PasswordErrorException;
@@ -65,9 +66,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
         //生成token
+        return getUserLoginVO(user);
+    }
+
+    private UserLoginVO getUserLoginVO(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userid", user.getId());
-        claims.put("username", user.getUsername());
+        claims.put(JwtClaimsConstant.USER_ID, user.getId());
+        claims.put(JwtClaimsConstant.USERNAME, user.getUsername());
         String token = JwtUtil.createJWT(jwtTokenProperty.getUserSecretKry(), jwtTokenProperty.getUserTTL(), claims);
 
         UserLoginVO loginVO = UserLoginVO.builder()
@@ -104,15 +109,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userMapper.insert(user);
 
         //生成token
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userid", user.getId());
-        claims.put("username", user.getUsername());
-        String token = JwtUtil.createJWT(jwtTokenProperty.getUserSecretKry(), jwtTokenProperty.getUserTTL(), claims);
-
-        UserLoginVO loginVO = UserLoginVO.builder()
-                .userId(user.getId())
-                .token(token).build();
-
-        return loginVO;
+        return getUserLoginVO(user);
     }
 }
