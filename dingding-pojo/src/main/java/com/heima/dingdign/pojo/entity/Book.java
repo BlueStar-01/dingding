@@ -12,7 +12,6 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -58,7 +57,7 @@ public class Book implements Serializable {
 
     @ApiModelProperty(value = "书籍的出版日期")
     @TableField("publishing_date")
-    private LocalDate publishingDate;
+    private LocalDateTime publishingDate;
 
     @ApiModelProperty(value = "记录创建时间")
     @TableField("create_time")

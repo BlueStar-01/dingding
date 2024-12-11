@@ -6,6 +6,8 @@ import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingding.result.Result;
 import com.heima.dingding.service.IBookService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequestMapping("/book")
 @RequiredArgsConstructor
 public class BookController {
+    private static final Logger log = LoggerFactory.getLogger(BookController.class);
     private final IBookService bookService;
 
     /**
@@ -24,6 +27,7 @@ public class BookController {
      */
     @PutMapping("/add")
     public Result addBook(@RequestBody BookDto book) {
+        log.info("添加书籍：{}", book);
         bookService.addBook(book);
         return Result.success();
     }
