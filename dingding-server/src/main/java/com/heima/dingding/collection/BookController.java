@@ -2,12 +2,14 @@ package com.heima.dingding.collection;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.heima.dingdign.pojo.dto.BookDto;
+import com.heima.dingdign.pojo.dto.BookPageDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingding.result.Result;
 import com.heima.dingding.service.IBookService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +28,7 @@ public class BookController {
      * @return
      */
     @PutMapping("/add")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Result addBook(@RequestBody BookDto book) {
         log.info("添加书籍：{}", book);
         bookService.addBook(book);
@@ -35,14 +38,12 @@ public class BookController {
     /**
      * 分页查询书籍
      *
-     * @param pageNo
-     * @param pageSize
+     * @param bookPageDto
      * @return
      */
     @GetMapping("/page")
-    public Result<Page<Book>> page(@RequestParam Integer pageNo, @RequestParam Integer pageSize) {
-        Page<Book> page = new Page<>(pageNo, pageSize);
-        Page<Book> books = bookService.page(page);
+    public Result<Page<Book>> page(@RequestBody BookPageDto bookPageDto) {
+        Page<Book> books = bookService.bookPage(bookPageDto);
         return Result.success(books);
     }
 
@@ -53,7 +54,7 @@ public class BookController {
      * @return
      */
     @GetMapping("/list")
-    public Result<List<Book>> list(Book dto) {
+    public Result<List<Book>> list(@RequestBody Book dto) {
         List list = bookService.listByBook(dto);
         return Result.success(list);
     }

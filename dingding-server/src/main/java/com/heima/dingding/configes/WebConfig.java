@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private JwtTokenUserInterceptor jwtTokenUserInterceptor;
 
-    //  TODO 如果有需要的跨域
+    //TODO 如果有需要的跨域
 //    @Override
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**") // 允许所有路径的跨域请求
@@ -32,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * 扩展消息转换器
+     *
      * @param converters
      */
     @Override

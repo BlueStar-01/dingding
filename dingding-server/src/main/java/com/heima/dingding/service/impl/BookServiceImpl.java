@@ -1,13 +1,19 @@
 package com.heima.dingding.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingdign.pojo.dto.BookDto;
+import com.heima.dingdign.pojo.dto.BookPageDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingding.mapper.BookMapper;
 import com.heima.dingding.service.IBookService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -19,8 +25,11 @@ import java.util.List;
  * @author author
  * @since 2024-12-08
  */
+@Slf4j
 @Service
 public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IBookService {
+    @Autowired
+    private BookMapper bookMapper;
 
     /**
      * 书籍条件查询
@@ -43,6 +52,42 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     public void addBook(BookDto bookdto) {
         Book book = new Book();
         BeanUtils.copyProperties(bookdto, book);
-        baseMapper.insert(book);
+        bookMapper.insert(book);
     }
+
+    /**
+     * 条件分页查询
+     *
+     * @param bookPageDto
+     * @return
+     */
+    //todo 分页查询实现中
+    @Override
+    public Page<Book> bookPage(BookPageDto bookPageDto) {
+        //添加查询函数
+        Page<Book> bookPage = new Page<>(bookPageDto.getPageNo(), bookPageDto.getPageSize(), false);
+        //构建条件
+        LambdaQueryWrapper<Book> wrapper = new LambdaQueryWrapper<Book>()
+                //查询的字段
+                .select(Book::getName, Book::getAuthor, Book::getPrice)
+                //姓名作者筛选
+                .like(!StringUtils.isEmpty(bookPageDto.getName()), Book::getName, bookPageDto.getName())
+                .like(!StringUtils.isEmpty(bookPageDto.getAuthor()), Book::getAuthor, bookPageDto.getAuthor())
+                //创建时间范围筛选
+                .gt(bookPageDto.getCreateStartTime() != null, Book::getCreateTime, bookPageDto.getCreateStartTime())
+                .lt(bookPageDto.getCreateEndTime() != null, Book::getCreateTime, bookPageDto.getCreateEndTime())
+                //更新时间范围筛选
+                .gt(bookPageDto.getUpdateStartTime() != null, Book::getUpdateTime, bookPageDto.getUpdateStartTime())
+                .lt(bookPageDto.getUpdateEndTime() != null, Book::getUpdateTime, bookPageDto.getUpdateEndTime())
+                //价格范围筛选
+                .gt(bookPageDto.getMinPrice() != null, Book::getPrice, bookPageDto.getMinPrice())
+                .lt(bookPageDto.getMaxPrice() != null, Book::getPrice, bookPageDto.getMaxPrice())
+                //排序
+                .orderByDesc(Book::getCreateTime);
+        Page<Book> page = bookMapper.selectPage(bookPage, wrapper);
+        log.info("{}", page);
+        return Page.of(bookPageDto.getPageNo(), bookPageDto.getPageSize());
+
+    }
+
 }

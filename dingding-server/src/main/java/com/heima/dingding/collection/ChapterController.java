@@ -15,9 +15,7 @@ public class ChapterController {
     private final IChapterService chapterService;
 
     /**
-     * 根据书籍id
-     * 获得所有的章节
-     *
+     * 根据书籍id获得所有的章节
      * @return
      */
     @GetMapping("/{bookId}")
