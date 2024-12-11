@@ -17,6 +17,7 @@ public class ChapterController {
     /**
      * 根据书籍id
      * 获得所有的章节
+     *
      * @return
      */
     @GetMapping("/{bookId}")
@@ -29,17 +30,16 @@ public class ChapterController {
     }
 
     /**
-     * 根据书籍id
-     * 获得所有的章节
+     * 根据书籍id添加章节
+     * @param bookId
      * @return
      */
     @PutMapping("/{bookId}")
-    public Result<List<Chapter>> addChapters(@PathVariable Long bookId) {
-        //先返回所有的实体对象
-        List<Chapter> list = chapterService.lambdaQuery()
-                .eq(Chapter::getBookId, bookId)
-                .list();
-        return Result.success(list);
+    public Result addChapters(@RequestBody Chapter chapter, @PathVariable Long bookId) {
+        //添加章节
+        chapter.setBookId(bookId);
+        boolean saved = chapterService.save(chapter);
+        return Result.success(saved);
     }
 
 }

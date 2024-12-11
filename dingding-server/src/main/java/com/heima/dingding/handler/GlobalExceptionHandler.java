@@ -3,6 +3,7 @@ package com.heima.dingding.handler;
 import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.exception.BaseException;
 import com.heima.dingding.result.Result;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,6 +38,19 @@ public class GlobalExceptionHandler {
             return Result.error(s[2] + MessageConstant.ACCOUNT_ALREADY_EXISTS);
         }
         return Result.error(MessageConstant.UNKNOWN_ERROR);
+    }
+
+    /**
+     * 处理用户过期JWT问题
+     *
+     * @param jwtException
+     * @return
+     */
+    @ExceptionHandler
+    public Result exception(ExpiredJwtException jwtException) {
+        log.info("JWT过期，{}", jwtException.getMessage());
+        jwtException.printStackTrace();
+        return Result.error(MessageConstant.ACCOUNT_EXPIRED_EXISTS);
     }
 
 

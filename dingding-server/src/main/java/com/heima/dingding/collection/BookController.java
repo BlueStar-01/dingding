@@ -18,6 +18,7 @@ public class BookController {
 
     /**
      * 添加书籍
+     *
      * @param book
      * @return
      */
@@ -29,6 +30,7 @@ public class BookController {
 
     /**
      * 分页查询书籍
+     *
      * @param pageNo
      * @param pageSize
      * @return
@@ -42,6 +44,7 @@ public class BookController {
 
     /**
      * 根据书籍对象中的条件来进行条件查询。
+     *
      * @param dto
      * @return
      */
@@ -53,18 +56,16 @@ public class BookController {
 
     /**
      * 根据id查询书籍
+     *
      * @param bookId
      * @return
      */
     @GetMapping("/{bookId}")
     public Result<Book> getById(@PathVariable Long bookId) {
         if (bookId == null) {
-            return  Result.error("ID为空");
+            return Result.error("ID为空");
         }
         Book book = bookService.getById(bookId);
         return book != null ? Result.success(book) : Result.error("不存在的书籍");
     }
-
-
-
 }

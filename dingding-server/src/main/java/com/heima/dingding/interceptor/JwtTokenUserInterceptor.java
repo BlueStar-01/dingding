@@ -1,8 +1,10 @@
 package com.heima.dingding.interceptor;
 
 import com.heima.dingding.constant.JwtClaimsConstant;
+import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.properties.JwtTokenProperty;
+import com.heima.dingding.result.Result;
 import com.heima.dingding.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,12 +33,15 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             //解析token（如果报错，则换回401）
             Claims claims = JwtUtil.parseJWT(jwtTokenProperty.getUserSecretKry(), token);
             //获得用户ID
-            log.info("token:{}\nclaims:{}", token,claims);
+            log.info("token:{}\nclaims:{}", token, claims);
             Long userid = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
             //存入当前请求的线程池中。
             BaseContext.setCurrentId(userid);
         } catch (Exception e) {
             e.printStackTrace();
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter()
+                    .print(Result.error(MessageConstant.USER_NOT_LOGIN));
             response.setStatus(401);
             return false;
         }
