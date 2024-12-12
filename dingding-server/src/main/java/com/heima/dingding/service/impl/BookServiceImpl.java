@@ -65,11 +65,11 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     @Override
     public Page<Book> bookPage(BookPageDto bookPageDto) {
         //添加查询函数
-        Page<Book> bookPage = new Page<>(bookPageDto.getPageNo(), bookPageDto.getPageSize(), false);
+        Page<Book> bookPage = Page.of(bookPageDto.getPageNo(), bookPageDto.getPageSize());
         //构建条件
         LambdaQueryWrapper<Book> wrapper = new LambdaQueryWrapper<Book>()
                 //查询的字段
-                .select(Book::getName, Book::getAuthor, Book::getPrice)
+                //.select(Book::getName, Book::getAuthor, Book::getPrice)
                 //姓名作者筛选
                 .like(!StringUtils.isEmpty(bookPageDto.getName()), Book::getName, bookPageDto.getName())
                 .like(!StringUtils.isEmpty(bookPageDto.getAuthor()), Book::getAuthor, bookPageDto.getAuthor())
@@ -84,9 +84,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
                 .lt(bookPageDto.getMaxPrice() != null, Book::getPrice, bookPageDto.getMaxPrice())
                 //排序
                 .orderByDesc(Book::getCreateTime);
-        Page<Book> page = bookMapper.selectPage(bookPage, wrapper);
-        log.info("{}", page);
-        return Page.of(bookPageDto.getPageNo(), bookPageDto.getPageSize());
+        Page<Book> page = this.page(bookPage, wrapper);
+        return page;
 
     }
 
