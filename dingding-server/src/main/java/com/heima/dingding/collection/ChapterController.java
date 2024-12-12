@@ -1,7 +1,7 @@
 package com.heima.dingding.collection;
 
 import com.heima.dingdign.pojo.entity.Chapter;
-import com.heima.dingding.result.Result;
+import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IChapterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

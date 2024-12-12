@@ -39,7 +39,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
      */
     @Override
     public List listByBook(Book dto) {
-        return List.of();
+        return null;
     }
 
     /**

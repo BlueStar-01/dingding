@@ -1,8 +1,8 @@
 package com.heima.dingding.handler;
 
 import com.heima.dingding.constant.MessageConstant;
+import com.heima.dingding.domain.Result;
 import com.heima.dingding.exception.BaseException;
-import com.heima.dingding.result.Result;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

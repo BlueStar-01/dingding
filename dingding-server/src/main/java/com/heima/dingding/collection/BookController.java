@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.heima.dingdign.pojo.dto.BookDto;
 import com.heima.dingdign.pojo.dto.BookPageDto;
 import com.heima.dingdign.pojo.entity.Book;
-import com.heima.dingding.result.Result;
+import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IBookService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -55,6 +55,7 @@ public class BookController {
      */
     @GetMapping("/list")
     public Result<List<Book>> list(@RequestBody Book dto) {
+        log.info("根据书籍对象中的条件来进行条件查询。{}：", dto);
         List list = bookService.listByBook(dto);
         return Result.success(list);
     }

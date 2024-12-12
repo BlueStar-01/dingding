@@ -1,4 +1,4 @@
-package com.heima.dingding.result;
+package com.heima.dingding.domain;
 
 import lombok.Data;
 

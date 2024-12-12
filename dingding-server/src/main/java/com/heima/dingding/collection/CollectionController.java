@@ -5,7 +5,7 @@ import com.heima.dingdign.pojo.dto.CollectionDto;
 import com.heima.dingdign.pojo.entity.Collection;
 import com.heima.dingdign.pojo.vo.CollectionVO;
 import com.heima.dingding.context.BaseContext;
-import com.heima.dingding.result.Result;
+import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.ICollectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

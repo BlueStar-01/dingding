@@ -2,7 +2,7 @@ package com.heima.dingding.collection;
 
 import com.heima.dingdign.pojo.dto.UserLoginDTO;
 import com.heima.dingdign.pojo.vo.UserLoginVO;
-import com.heima.dingding.result.Result;
+import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
