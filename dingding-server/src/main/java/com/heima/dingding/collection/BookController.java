@@ -2,13 +2,15 @@ package com.heima.dingding.collection;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.heima.dingdign.pojo.dto.BookDto;
-import com.heima.dingdign.pojo.dto.BookPageDto;
+import com.heima.dingdign.pojo.dto.BookPageQueryDto;
 import com.heima.dingdign.pojo.entity.Book;
+import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IBookService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,28 +38,15 @@ public class BookController {
     }
 
     /**
-     * 分页查询书籍
+     * 条件分页查询书籍
      *
      * @param bookPageDto
      * @return
      */
     @GetMapping("/page")
-    public Result<Page<Book>> page(@RequestBody BookPageDto bookPageDto) {
+    public Result<Page<Book>> page(@RequestBody BookPageQueryDto bookPageDto) {
         Page<Book> books = bookService.bookPage(bookPageDto);
         return Result.success(books);
-    }
-
-    /**
-     * 根据书籍对象中的条件来进行条件查询。
-     *
-     * @param dto
-     * @return
-     */
-    @GetMapping("/list")
-    public Result<List<Book>> list(@RequestBody Book dto) {
-        log.info("根据书籍对象中的条件来进行条件查询。{}：", dto);
-        List list = bookService.listByBook(dto);
-        return Result.success(list);
     }
 
     /**
@@ -73,5 +62,46 @@ public class BookController {
         }
         Book book = bookService.getById(bookId);
         return book != null ? Result.success(book) : Result.error("不存在的书籍");
+    }
+
+    /**
+     * 根据id删除书籍
+     *
+     * @param bookId
+     * @return
+     */
+    @DeleteMapping("/{bookId}")
+    public Result deleteById(@PathVariable Long bookId) {
+        bookService.removeById(bookId);
+        return Result.success();
+    }
+
+    /**
+     * 根据ids批量删除书籍
+     *
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public Result deleteByIds(@RequestBody List<Long> ids) {
+        bookService.removeByIds(ids);
+        return Result.success();
+    }
+
+    /**
+     * 修改书籍
+     *
+     * @param
+     * @return
+     */
+    @PostMapping
+    public Result updateBook(@RequestBody BookDto bookDto) {
+        Book book = new Book();
+        BeanUtils.copyProperties(bookDto, book);
+        boolean updated = bookService.updateById(book);
+        if (!updated) {
+            return Result.error(MessageConstant.UPDATE_FAILED);
+        }
+        return Result.success();
     }
 }

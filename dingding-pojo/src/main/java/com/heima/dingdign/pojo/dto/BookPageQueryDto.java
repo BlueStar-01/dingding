@@ -1,17 +1,15 @@
 package com.heima.dingdign.pojo.dto;
 
+import com.heima.dingding.domain.PageQuery;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class BookPageDto {
-    @ApiModelProperty(value = "分页页数")
-    private Integer pageNo;
-
-    @ApiModelProperty(value = "分页查询尺寸")
-    private Integer pageSize;
+@ApiModel(description = "书籍分页查询条件")
+public class BookPageQueryDto  extends PageQuery {
 
     @ApiModelProperty(value = "书名关键词匹配")
     private String name;

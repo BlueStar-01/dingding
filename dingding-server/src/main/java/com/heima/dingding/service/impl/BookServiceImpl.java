@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingdign.pojo.dto.BookDto;
-import com.heima.dingdign.pojo.dto.BookPageDto;
+import com.heima.dingdign.pojo.dto.BookPageQueryDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingding.mapper.BookMapper;
 import com.heima.dingding.service.IBookService;
@@ -63,9 +63,9 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
      */
     //todo 分页查询实现中
     @Override
-    public Page<Book> bookPage(BookPageDto bookPageDto) {
+    public Page<Book> bookPage(BookPageQueryDto bookPageDto) {
         //添加查询函数
-        Page<Book> bookPage = Page.of(bookPageDto.getPageNo(), bookPageDto.getPageSize());
+        Page<Book> bookPage = bookPageDto.toMapPage();
         //构建条件
         LambdaQueryWrapper<Book> wrapper = new LambdaQueryWrapper<Book>()
                 //查询的字段

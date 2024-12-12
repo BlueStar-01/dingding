@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 
 @Data
 public class BookDto implements Serializable {
+    @ApiModelProperty(value = "书籍的id")
+    @TableField("id")
+    private Long id;
 
     @ApiModelProperty(value = "书籍的名称")
     @TableField("name")
