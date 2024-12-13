@@ -13,4 +13,5 @@ import com.heima.dingdign.pojo.entity.Collection;
  */
 public interface ICollectionService extends IService<Collection> {
 
+    Boolean reById(Long collectionId);
 }

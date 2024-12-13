@@ -3,6 +3,7 @@ package com.heima.dingding.collection;
 import com.heima.dingdign.pojo.dto.CollectionDto;
 import com.heima.dingdign.pojo.entity.Collection;
 import com.heima.dingdign.pojo.vo.CollectionVO;
+import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.ICollectionService;
@@ -94,9 +95,11 @@ public class CollectionController {
      */
     @DeleteMapping("/{collectionId}")
     public Result delCollection(@PathVariable Long collectionId) {
-
-        Collection byId = collectionService.getById(collectionId);
-        collectionService.removeById(collectionId);
+        //查询是否有存在
+        if (collectionId == null || collectionService.getById(collectionId) == null) {
+            return Result.error(MessageConstant.COL_NOT_FOUND);
+        }
+        Boolean del = collectionService.reById(collectionId);
         return Result.success();
     }
 
