@@ -4,6 +4,7 @@ import com.heima.dingding.interceptor.JwtTokenUserInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -23,6 +24,16 @@ public class WebConfig implements WebMvcConfigurer {
 //                .allowedHeaders("*") // 允许的请求头
 //                .allowCredentials(true); // 是否允许携带凭证
 //    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // 对所有接口路径应用跨域配置
+                .allowedOrigins("http://localhost:8081") // 允许的前端域名或IP及端口
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 允许的请求方法
+                .allowedHeaders("*") // 允许的请求头，这里设置为全部允许，实际可按需细化
+                .allowCredentials(true) // 是否允许携带凭证（如Cookie等），如果需要传递Cookie，这里要设为true
+                .maxAge(3600); // 预检请求的缓存时间，单位为秒
+    }
 
 
     @Override
