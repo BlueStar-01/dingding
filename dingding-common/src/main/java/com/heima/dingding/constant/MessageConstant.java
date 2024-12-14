@@ -5,9 +5,13 @@ package com.heima.dingding.constant;
  */
 public class MessageConstant {
 
+
     public static final String PASSWORD_ERROR = "密码错误";
     public static final String ACCOUNT_NOT_FOUND = "账号不存在";
+    public static final String COL_NOT_FOUND = "列不存在";
     public static final String ACCOUNT_ALREADY_EXISTS = "账号已存在";
+    public static final String ACCOUNT_EXPIRED_EXISTS = "账号已过期";
+    public static final String UPDATE_FAILED = "更新失败";
     public static final String ACCOUNT_LOCKED = "账号被锁定";
     public static final String UNKNOWN_ERROR = "未知错误";
     public static final String USER_NOT_LOGIN = "用户未登录";

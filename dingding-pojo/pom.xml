@@ -40,6 +40,12 @@
             <version>3.5.7</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.heima</groupId>
+            <artifactId>dingding-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

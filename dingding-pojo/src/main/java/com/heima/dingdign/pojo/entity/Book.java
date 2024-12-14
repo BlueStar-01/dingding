@@ -10,9 +10,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -58,7 +59,7 @@ public class Book implements Serializable {
 
     @ApiModelProperty(value = "书籍的出版日期")
     @TableField("publishing_date")
-    private LocalDate publishingDate;
+    private LocalDateTime publishingDate;
 
     @ApiModelProperty(value = "记录创建时间")
     @TableField("create_time")
@@ -82,5 +83,7 @@ public class Book implements Serializable {
 
     @ApiModelProperty(value = "平均评分")
     @TableField("rating")
+    @DecimalMin(value = "0", message = "评分不能小于0")
+    @DecimalMax(value = "10", message = "评分不能超过10")
     private BigDecimal rating;
 }

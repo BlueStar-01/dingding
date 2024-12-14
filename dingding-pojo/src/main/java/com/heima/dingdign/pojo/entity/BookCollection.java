@@ -46,6 +46,7 @@ public class BookCollection implements Serializable {
     @TableField("create_time")
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "更新时间")
     @TableField("update_time")
     private LocalDateTime updateTime;
 

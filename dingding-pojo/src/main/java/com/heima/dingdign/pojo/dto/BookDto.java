@@ -1,20 +1,19 @@
 package com.heima.dingdign.pojo.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 public class BookDto implements Serializable {
-    @ApiModelProperty(value = "书籍的唯一标识符")
-    @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty(value = "书籍的id")
+    @TableField("id")
     private Long id;
 
     @ApiModelProperty(value = "书籍的名称")
@@ -39,7 +38,7 @@ public class BookDto implements Serializable {
 
     @ApiModelProperty(value = "书籍的出版日期")
     @TableField("publishing_date")
-    private LocalDate publishingDate;
+    private LocalDateTime publishingDate;
 
     @ApiModelProperty(value = "记录创建时间")
     @TableField("create_time")
@@ -63,5 +62,7 @@ public class BookDto implements Serializable {
 
     @ApiModelProperty(value = "平均评分")
     @TableField("rating")
+    @DecimalMin(value = "0", message = "评分不能小于0")
+    @DecimalMax(value = "10", message = "评分不能超过10")
     private BigDecimal rating;
 }
