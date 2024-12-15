@@ -7,7 +7,7 @@ mybatis-plus:
 
 spring:
   profiles:
-    active: dev
+    active: 本地
   datasource:
     username: ${dingding.datasource.username}
     password: ${dingding.datasource.password}
