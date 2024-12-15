@@ -1,6 +1,5 @@
 package com.heima.dingding.collection;
 
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.heima.dingdign.pojo.dto.BookCollectionDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingdign.pojo.entity.BookCollection;
@@ -11,7 +10,10 @@ import com.heima.dingding.service.IBookCollectionService;
 import com.heima.dingding.service.IBookService;
 import com.heima.dingding.service.ICollectionService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import java.util.List;
 @RequestMapping("/BookCollection")
 public class BookCollectionController {
 
+    private static final Logger log = LoggerFactory.getLogger(BookCollectionController.class);
     private final IBookCollectionService bookCollectionService;
 
     private final IBookService bookService;
@@ -34,7 +37,7 @@ public class BookCollectionController {
      * @param collectionId
      * @return
      */
-    @GetMapping("/List")
+    @GetMapping("/list")
     public Result<List<Book>> getList(@RequestParam Long collectionId) {
         //查询所有的数据
         List<BookCollection> list = bookCollectionService.lambdaQuery()
@@ -87,12 +90,16 @@ public class BookCollectionController {
      * @param bookCollectionDto
      * @return
      */
+    @Transactional
     @DeleteMapping("/del")
     public Result delBookCollection(@RequestBody BookCollectionDto bookCollectionDto) {
-        LambdaQueryChainWrapper<BookCollection> wrapper = bookCollectionService.lambdaQuery()
+        //查询id
+        List<BookCollection> list = bookCollectionService.lambdaQuery()
                 .eq(BookCollection::getCollectionId, bookCollectionDto.getCollectionId())
-                .eq(BookCollection::getBookId, bookCollectionDto.getBookId());
-        bookCollectionService.remove(wrapper);
+                .eq(BookCollection::getBookId, bookCollectionDto.getBookId())
+                .list();
+        log.info("删除实体:{}", list);
+        bookCollectionService.removeByIds(list);
         return Result.success();
     }
 
