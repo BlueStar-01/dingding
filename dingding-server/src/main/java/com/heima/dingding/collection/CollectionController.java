@@ -51,9 +51,11 @@ public class CollectionController {
      * @return
      */
     @PostMapping
-    public Result postCollection(@RequestBody CollectionDto dto) {
+    public Result postCollection(@RequestBody Long id, @RequestBody CollectionDto dto) {
         Collection collection = new Collection();
         BeanUtils.copyProperties(dto, collection);
+
+        collection.setId(id);
         collectionService.updateById(collection);
         return Result.success();
     }
