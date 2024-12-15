@@ -55,6 +55,9 @@ public class WebConfig implements WebMvcConfigurer {
         log.info("注册用户端拦截器...");
         registry.addInterceptor(jwtTokenUserInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/user/**");
+                //登录和注册
+                .excludePathPatterns("/user/**")
+                //分页搜索添加
+                .excludePathPatterns("/book/page");
     }
 }
