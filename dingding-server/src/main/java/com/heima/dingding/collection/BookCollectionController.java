@@ -34,16 +34,19 @@ public class BookCollectionController {
      * @param collectionId
      * @return
      */
-    @GetMapping("/getList")
+    @GetMapping("/List")
     public Result<List<Book>> getList(@RequestParam Long collectionId) {
         //查询所有的数据
         List<BookCollection> list = bookCollectionService.lambdaQuery()
                 .eq(BookCollection::getCollectionId, collectionId)
                 .list();
         //获得所有的书籍id
-        ArrayList<Long> bookIds = new ArrayList<>();
+        List<Long> bookIds = new ArrayList<>();
         list.forEach(s -> bookIds.add(s.getBookId()));
         //查询书籍
+        if (bookIds.isEmpty()) {
+            return Result.success(MessageConstant.COL_NOT_FOUND, null);
+        }
         List<Book> books = bookService.listByIds(bookIds);
         return Result.success(books);
     }
