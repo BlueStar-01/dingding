@@ -1,8 +1,10 @@
 package com.heima.dingding.collection;
 
+import com.heima.dingdign.pojo.dto.UserDto;
 import com.heima.dingdign.pojo.dto.UserLoginDTO;
 import com.heima.dingdign.pojo.entity.User;
 import com.heima.dingdign.pojo.vo.UserLoginVO;
+import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IUserService;
@@ -27,6 +29,22 @@ public class UserController {
         log.info("用户信息查询：{}", BaseContext.getCurrentId());
         User user = userService.getById(BaseContext.getCurrentId());
         user.setPassword(null);
+        return Result.success(user);
+    }
+
+    /**
+     * 修改用户的信息
+     *
+     * @param dto
+     * @return
+     */
+    @PutMapping("/info")
+    public Result<User> update(@RequestBody UserDto dto) {
+        log.info("用户信息修改：{}", dto);
+        User user = userService.updateUser(dto);
+        if (user == null) {
+            return Result.error(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
         return Result.success(user);
     }
 

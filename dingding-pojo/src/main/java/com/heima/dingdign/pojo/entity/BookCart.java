@@ -25,20 +25,20 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("book_cart")
-@ApiModel(value="BookCart对象", description="购物内容表")
+@ApiModel(value = "BookCart对象", description = "购物内容表")
 public class BookCart implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "购物车ID")
+    @ApiModelProperty(value = "购物车记录ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @TableField("user_id")
+    private Long userId;
+
     @TableField("book_id")
     private Long bookId;
-
-    @TableField("cart_id")
-    private Long cartId;
 
     @ApiModelProperty(value = "记录书的数量")
     @TableField("number")

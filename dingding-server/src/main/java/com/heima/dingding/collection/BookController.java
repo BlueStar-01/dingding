@@ -50,7 +50,7 @@ public class BookController {
     }
 
     /**
-     * 根据id查询书籍
+     * 根据id查询书籍详情
      *
      * @param bookId
      * @return

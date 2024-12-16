@@ -3,11 +3,13 @@ package com.heima.dingding.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.heima.dingdign.pojo.dto.UserDto;
 import com.heima.dingdign.pojo.dto.UserLoginDTO;
 import com.heima.dingdign.pojo.entity.User;
 import com.heima.dingdign.pojo.vo.UserLoginVO;
 import com.heima.dingding.constant.JwtClaimsConstant;
 import com.heima.dingding.constant.MessageConstant;
+import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.exception.AccountNotFoundException;
 import com.heima.dingding.exception.PasswordErrorException;
 import com.heima.dingding.mapper.UserMapper;
@@ -16,10 +18,12 @@ import com.heima.dingding.service.IUserService;
 import com.heima.dingding.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,5 +114,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         //生成token
         return getUserLoginVO(user);
+    }
+
+    @Transactional
+    @Override
+    public User updateUser(UserDto dto) {
+        //查询用户的信息
+        User user = getById(BaseContext.getCurrentId());
+        if (user == null) {
+            return null;
+        }
+        //密码加密
+        if (dto.getPassword() != null && !dto.getPassword().equals(user.getPassword())) {
+            dto.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
+        }
+        //复制属性
+        BeanUtils.copyProperties(dto, user);
+        user.setUpdateTime(LocalDateTime.now());
+        //添加进入数据库
+        log.info("修改后的user对象：{}", user);
+        updateById(user);
+        return user;
     }
 }
