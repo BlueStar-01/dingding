@@ -2,6 +2,7 @@ package com.heima.dingding.collection;
 
 import com.heima.dingdign.pojo.dto.CartDto;
 import com.heima.dingdign.pojo.entity.BookCart;
+import com.heima.dingdign.pojo.vo.BookVO;
 import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IBookCartService;
@@ -37,8 +38,10 @@ public class CartController {
      *
      * @return
      */
+    //todo
     @GetMapping("/list")
-    public Result<List<BookCart>> list() {
-        return Result.success(cartService.lambdaQuery().eq(BookCart::getUserId, BaseContext.getCurrentId()).list());
+    public Result<List<BookVO>> list() {
+        List<BookCart> list = cartService.lambdaQuery().eq(BookCart::getUserId, BaseContext.getCurrentId()).list();
+        return Result.success();
     }
 }
