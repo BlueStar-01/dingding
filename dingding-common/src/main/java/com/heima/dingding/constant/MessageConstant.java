@@ -8,8 +8,9 @@ public class MessageConstant {
 
     public static final String PASSWORD_ERROR = "密码错误";
     public static final String ACCOUNT_NOT_FOUND = "账号不存在";
-    public static final String COL_NOT_FOUND = "列不存在";
+    public static final String COL_NOT_FOUND = "记录不存在";
     public static final String BOOK_OR_COLLECTION_NOT_FOUND = "书籍或收藏夹不存在";
+    public static final String BOOK_NOT_FOUND = "书籍不存在";
     public static final String ACCOUNT_ALREADY_EXISTS = "账号已存在";
     public static final String ACCOUNT_EXPIRED_EXISTS = "账号已过期";
     public static final String UPDATE_FAILED = "更新失败";

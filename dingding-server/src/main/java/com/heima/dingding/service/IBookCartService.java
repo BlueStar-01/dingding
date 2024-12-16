@@ -1,6 +1,7 @@
 package com.heima.dingding.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.heima.dingdign.pojo.dto.CartDto;
 import com.heima.dingdign.pojo.entity.BookCart;
 /**
  * <p>
@@ -12,4 +13,5 @@ import com.heima.dingdign.pojo.entity.BookCart;
  */
 public interface IBookCartService extends IService<BookCart> {
 
+    void addBook(CartDto cartDto);
 }

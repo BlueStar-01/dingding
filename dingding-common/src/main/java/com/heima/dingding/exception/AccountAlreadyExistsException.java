@@ -1,10 +1,10 @@
 package com.heima.dingding.exception;
 
 public class AccountAlreadyExistsException extends BaseException {
-    AccountAlreadyExistsException(String message) {
+    public  AccountAlreadyExistsException(String message) {
         super(message);
     }
 
-    AccountAlreadyExistsException() {
+    public AccountAlreadyExistsException() {
     }
 }
