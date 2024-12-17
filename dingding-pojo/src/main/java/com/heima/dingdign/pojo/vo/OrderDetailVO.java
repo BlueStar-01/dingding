@@ -1,18 +1,17 @@
 package com.heima.dingdign.pojo.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
-@Builder
-public class BookCartVo {
-
+@Accessors(chain = true)
+public class OrderDetailVO {
     @ApiModelProperty("书名")
     private String bookName;
 
     @ApiModelProperty("书籍封面链接")
-    private String cover_img;
+    private String coverImg;
 
     @ApiModelProperty("书籍描述")
     private String description;
@@ -22,4 +21,5 @@ public class BookCartVo {
 
     @ApiModelProperty("总价格")
     private Integer sumPrice;
+
 }

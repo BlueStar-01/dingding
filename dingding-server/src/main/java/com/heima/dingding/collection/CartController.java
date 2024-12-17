@@ -3,7 +3,7 @@ package com.heima.dingding.collection;
 import com.heima.dingdign.pojo.dto.CartDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingdign.pojo.entity.BookCart;
-import com.heima.dingdign.pojo.vo.BookCartVo;
+import com.heima.dingdign.pojo.vo.BookCartVO;
 import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IBookCartService;
@@ -45,20 +45,20 @@ public class CartController {
      */
     //todo
     @GetMapping("/list")
-    public Result<List<BookCartVo>> list() {
+    public Result<List<BookCartVO>> list() {
         //查询用户的购物车数据
         List<BookCart> carts = cartService.lambdaQuery().eq(BookCart::getUserId, BaseContext.getCurrentId()).list();
         Set<Long> ids = carts.stream().map(BookCart::getBookId).collect(Collectors.toSet());
         //查询对应的书籍信息
         List<Book> books = bookService.listByIds(ids);
-        List<BookCartVo> ret = new ArrayList<>();
+        List<BookCartVO> ret = new ArrayList<>();
         for (int i = 0; i < carts.size(); i++) {
             //添加信息
             BookCart bookCart = carts.get(i);
             Book book = books.get(i);
-            BookCartVo vo = BookCartVo.builder()
+            BookCartVO vo = BookCartVO.builder()
                     .bookName(book.getName())
-                    .cover_img(book.getCoverImg())
+                    .coverImg(book.getCoverImg())
                     .description(book.getDescription())
                     .number(bookCart.getNumber())
                     .sumPrice(book.getPrice() * bookCart.getNumber())
