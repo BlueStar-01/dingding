@@ -40,7 +40,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     private final IBookCartService cartService;
     private final IBookService bookService;
-    private final IOrdersService orderService;
     private final IOrderDetailService detailService;
 
 
