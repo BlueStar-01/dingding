@@ -35,13 +35,6 @@ public class BookVO {
     @Length(max= -1,message="编码长度不能超过-1")
     private String description;
     /**
-     * 书籍的国际标准书号
-     */
-    @NotBlank(message="[书籍的国际标准书号]不能为空")
-    @Size(max= 20,message="编码长度不能超过20")
-    @Length(max= 20,message="编码长度不能超过20")
-    private String isbn;
-    /**
      * 书籍的作者
      */
     @NotBlank(message="[书籍的作者]不能为空")

@@ -43,7 +43,7 @@ public class BookController {
      * @param bookPageDto
      * @return
      */
-    @GetMapping("/page")
+    @PostMapping("/page")
     public Result<Page<Book>> page(@RequestBody BookPageQueryDto bookPageDto) {
         Page<Book> books = bookService.bookPage(bookPageDto);
         return Result.success(books);
