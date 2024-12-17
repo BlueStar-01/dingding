@@ -8,7 +8,6 @@ import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IBookCartService;
 import com.heima.dingding.service.IBookService;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +27,11 @@ public class CartController {
     private final IBookService bookService;
 
     /**
-     * 添加或减少书籍进购物车
+     * 添加或减少书籍进购物车(number为负数就是减少,为null就设为默认1)
      *
      * @param cartDto
      * @return
      */
-    @ApiModelProperty("添加或减少书籍进购物车(number为负数就是减少,为null就设为默认1)")
     @PutMapping("/add")
     public Result addBook(@RequestBody CartDto cartDto) {
         cartService.addBook(cartDto);
