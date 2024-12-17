@@ -27,7 +27,7 @@ public class OrderController {
     @PutMapping("/clean")
     private Result<Orders> cleanCart() {
         Orders order = ordersService.cleanCart();
-        return Result.success();
+        return Result.success(order);
     }
 
     /**
