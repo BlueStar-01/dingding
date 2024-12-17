@@ -1,5 +1,6 @@
 package com.heima.dingding.collection;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.heima.dingdign.pojo.dto.BookCollectionDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingdign.pojo.entity.BookCollection;
@@ -30,6 +31,20 @@ public class BookCollectionController {
     private final IBookService bookService;
 
     private final ICollectionService collectionService;
+
+    /**
+     * 获得推荐书籍
+     *
+     * @return
+     */
+    //todo 简易版本 找出评分最高的10本书籍
+    @GetMapping("/recommendedBooks")
+    public Result<List<Book>> recommendedBooks() {
+        List<Book> books = bookService.lambdaQuery()
+                .orderByDesc(Book::getRating)
+                .page(Page.of(1, 10)).getRecords();
+        return Result.success("简易版本 找出评分最高的10本书籍", books);
+    }
 
     /**
      * 获得收藏夹中的所有书籍

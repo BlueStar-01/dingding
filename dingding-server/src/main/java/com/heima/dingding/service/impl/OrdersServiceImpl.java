@@ -10,6 +10,7 @@ import com.heima.dingdign.pojo.vo.OrderDetailVO;
 import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.constant.PayConstant;
 import com.heima.dingding.context.BaseContext;
+import com.heima.dingding.exception.AccountException;
 import com.heima.dingding.exception.DataException;
 import com.heima.dingding.mapper.OrdersMapper;
 import com.heima.dingding.service.IBookCartService;
@@ -90,7 +91,10 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @Override
     public List<OrderDetailVO> getOrderDetail(Long orderId) {
         //只有当前用户才可以看自己的订单
-
+        Long userId = getById(orderId).getUserId();
+        if (userId != BaseContext.getCurrentId()) {
+            throw new AccountException(MessageConstant.USER_NOT_PERMISSION);
+        }
         //查询订单详情
         List<OrderDetail> details = detailService.lambdaQuery().eq(OrderDetail::getOrderId, orderId).list();
         //查询书籍信息
