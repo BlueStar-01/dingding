@@ -7,6 +7,7 @@ import com.heima.dingding.domain.Result;
 import com.heima.dingding.properties.JwtTokenProperty;
 import com.heima.dingding.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +31,21 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
         try {
             //获得token
             String token = request.getHeader(jwtTokenProperty.getUserTokenName());
+            if (token == null) {
+                //如果不存在，则从cookie里面试图寻找。
+                Cookie[] cookies = request.getCookies();
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals(jwtTokenProperty.getUserTokenName())) {
+                        token = cookie.getValue();
+                        break;
+                    }
+                }
+            }
             //解析token（如果报错，则换回401）
+            log.info("用户信息token:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtTokenProperty.getUserSecretKry(), token);
             //获得用户ID
-            log.info("用户信息拦截：{}", claims);
+            log.info("用户信息解析結果：{}", claims);
             Long userid = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
             //存入当前请求的线程池中。
             BaseContext.setCurrentId(userid);
