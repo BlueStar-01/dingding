@@ -1,17 +1,22 @@
 package com.heima.dingding.collection;
 
 import com.heima.dingdign.pojo.dto.CartDto;
+import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingdign.pojo.entity.BookCart;
-import com.heima.dingdign.pojo.vo.BookVO;
+import com.heima.dingdign.pojo.vo.BookCartVo;
 import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.service.IBookCartService;
+import com.heima.dingding.service.IBookService;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cart")
@@ -19,6 +24,8 @@ import java.util.List;
 @Slf4j
 public class CartController {
     private final IBookCartService cartService;
+
+    private final IBookService bookService;
 
     /**
      * 添加或减少书籍进购物车
@@ -40,8 +47,26 @@ public class CartController {
      */
     //todo
     @GetMapping("/list")
-    public Result<List<BookVO>> list() {
-        List<BookCart> list = cartService.lambdaQuery().eq(BookCart::getUserId, BaseContext.getCurrentId()).list();
-        return Result.success();
+    public Result<List<BookCartVo>> list() {
+        //查询用户的购物车数据
+        List<BookCart> carts = cartService.lambdaQuery().eq(BookCart::getUserId, BaseContext.getCurrentId()).list();
+        Set<Long> ids = carts.stream().map(BookCart::getBookId).collect(Collectors.toSet());
+        //查询对应的书籍信息
+        List<Book> books = bookService.listByIds(ids);
+        List<BookCartVo> ret = new ArrayList<>();
+        for (int i = 0; i < carts.size(); i++) {
+            //添加信息
+            BookCart bookCart = carts.get(i);
+            Book book = books.get(i);
+            BookCartVo vo = BookCartVo.builder()
+                    .bookName(book.getName())
+                    .cover_img(book.getCoverImg())
+                    .description(book.getDescription())
+                    .number(bookCart.getNumber())
+                    .sumPrice(book.getPrice() * bookCart.getNumber())
+                    .build();
+            ret.add(vo);
+        }
+        return Result.success(ret);
     }
 }
