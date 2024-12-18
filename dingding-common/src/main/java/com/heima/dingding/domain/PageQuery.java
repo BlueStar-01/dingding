@@ -63,5 +63,7 @@ public class PageQuery implements Serializable {
         return page;
     }
 
-
+    public <T> Page<T> toMpPageDefaultSortByCreateTimeDesc() {
+        return toMapPage("create_time", false);
+    }
 }
