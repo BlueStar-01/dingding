@@ -5,8 +5,11 @@ import com.heima.dingdign.pojo.dto.BookCollectionDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingdign.pojo.entity.BookCollection;
 import com.heima.dingdign.pojo.entity.Collection;
+import com.heima.dingding.constant.CollectionConstant;
 import com.heima.dingding.constant.MessageConstant;
+import com.heima.dingding.context.BaseContext;
 import com.heima.dingding.domain.Result;
+import com.heima.dingding.exception.DataException;
 import com.heima.dingding.service.IBookCollectionService;
 import com.heima.dingding.service.IBookService;
 import com.heima.dingding.service.ICollectionService;
@@ -17,8 +20,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @RestController
@@ -54,6 +60,8 @@ public class BookCollectionController {
      */
     @GetMapping("/list")
     public Result<List<Book>> getList(@RequestParam Long collectionId) {
+        //检查ID问题
+        collectionId = creatDeflateCollection(collectionId);
         //查询所有的数据
         List<BookCollection> list = bookCollectionService.lambdaQuery()
                 .eq(BookCollection::getCollectionId, collectionId)
@@ -67,6 +75,39 @@ public class BookCollectionController {
         }
         List<Book> books = bookService.listByIds(bookIds);
         return Result.success(books);
+    }
+
+    /**
+     * 检查id问题，创建默认收藏夹
+     *
+     * @param collectionId
+     * @return
+     */
+    private Long creatDeflateCollection(Long collectionId) {
+        Collection byId = collectionService.getById(collectionId);
+        //如果为空，或者没有权限，就查找默认收藏夹
+        if (byId == null || !Objects.equals(byId.getUserId(), BaseContext.getCurrentId())) {
+            Collection collection = null;
+            try {
+                collection = collectionService.lambdaQuery().eq(Collection::getUserId, BaseContext.getCurrentId()).list().getFirst();
+                collectionId = collection.getId();
+            } catch (NoSuchElementException e) {
+                e.printStackTrace();
+                //无默认就创建一个
+                Collection temp = new Collection();
+                temp.setUserId(BaseContext.getCurrentId())
+                        .setName(CollectionConstant.DEFAULT_COLLECTION_NAME)
+                        .setCreateTime(LocalDateTime.now())
+                        .setUpdateTime(LocalDateTime.now())
+                        .setDescription(CollectionConstant.DEFAULT_DESCRIPTION);
+                boolean save = collectionService.save(temp);
+                if (!save) {
+                    throw new DataException(MessageConstant.CREATE_DEFAULT_COLLECTION_FAILED);
+                }
+                collectionId = temp.getId();
+            }
+        }
+        return collectionId;
     }
 
 
