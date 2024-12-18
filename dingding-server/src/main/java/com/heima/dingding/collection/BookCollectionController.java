@@ -61,7 +61,7 @@ public class BookCollectionController {
     @GetMapping("/list")
     public Result<List<Book>> getList(@RequestParam Long collectionId) {
         //检查ID问题
-        collectionId = creatDeflateCollection(collectionId);
+        collectionId = checkOrCreatDeflateCollection(collectionId);
         //查询所有的数据
         List<BookCollection> list = bookCollectionService.lambdaQuery()
                 .eq(BookCollection::getCollectionId, collectionId)
@@ -78,12 +78,12 @@ public class BookCollectionController {
     }
 
     /**
-     * 检查id问题，创建默认收藏夹
+     * 检查收藏夹id，创建默认收藏夹
      *
      * @param collectionId
      * @return
      */
-    private Long creatDeflateCollection(Long collectionId) {
+    private Long checkOrCreatDeflateCollection(Long collectionId) {
         Collection byId = collectionService.getById(collectionId);
         //如果为空，或者没有权限，就查找默认收藏夹
         if (byId == null || !Objects.equals(byId.getUserId(), BaseContext.getCurrentId())) {
@@ -119,6 +119,9 @@ public class BookCollectionController {
      */
     @PutMapping("/add")
     public Result addBookCollection(@RequestBody BookCollectionDto bookCollectionDto) {
+        //检查收藏夹问题
+        bookCollectionDto.setCollectionId(checkOrCreatDeflateCollection(bookCollectionDto.getCollectionId()));
+
         BookCollection controller = new BookCollection();
         BeanUtils.copyProperties(bookCollectionDto, controller);
         //检查书籍和收藏夹是否存在
