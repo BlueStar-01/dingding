@@ -1,6 +1,5 @@
 package com.heima.dingding.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.dingdign.pojo.dto.BookDto;
@@ -64,10 +63,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     //todo 分页查询实现中
     @Override
     public Page<Book> bookPage(BookPageQueryDto bookPageDto) {
-        //添加查询函数
-        Page<Book> bookPage = bookPageDto.toMapPage();
-        //构建条件
-        LambdaQueryWrapper<Book> wrapper = new LambdaQueryWrapper<Book>()
+        //构建条件'
+        Page<Book> page = this.lambdaQuery()
                 //查询的字段
                 //.select(Book::getName, Book::getAuthor, Book::getPrice)
                 //姓名作者筛选
@@ -83,8 +80,15 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
                 .gt(bookPageDto.getMinPrice() != null, Book::getPrice, bookPageDto.getMinPrice())
                 .lt(bookPageDto.getMaxPrice() != null, Book::getPrice, bookPageDto.getMaxPrice())
                 //排序
-                .orderByDesc(Book::getCreateTime);
-        Page<Book> page = this.page(bookPage, wrapper);
+                .page(bookPageDto.toMpPageDefaultSortByCreateTimeDesc());
+        if (page.getTotal() <= 20) {
+            //太少就添加一些数据
+            List<Book> list = this.list(Page.of(1, 20));
+            List<Book> books = page.getRecords();
+            books.addAll(list);
+            page.setRecords(books);
+            page.setTotal(page.getRecords().size());
+        }
         return page;
 
     }
