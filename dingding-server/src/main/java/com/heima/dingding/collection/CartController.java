@@ -67,4 +67,21 @@ public class CartController {
         }
         return Result.success(ret);
     }
+    /**
+     * 清空当前用户的购物车
+     *
+     * @return
+     */
+    @DeleteMapping("/clear")
+    public Result clearCart() {
+        // 根据当前用户ID删除购物车记录
+        boolean isDeleted = cartService.lambdaUpdate()
+                .eq(BookCart::getUserId, BaseContext.getCurrentId())
+                .remove();
+        if (isDeleted) {
+            return Result.success("购物车已清空");
+        } else {
+            return Result.error("清空购物车失败");
+        }
+    }
 }
