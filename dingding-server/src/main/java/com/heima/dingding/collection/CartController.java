@@ -79,7 +79,7 @@ public class CartController {
                 .eq(BookCart::getUserId, BaseContext.getCurrentId())
                 .remove();
         if (isDeleted) {
-            return Result.success("购物车已清空");
+            return Result.success("购物车已清空",null);
         } else {
             return Result.error("清空购物车失败");
         }
