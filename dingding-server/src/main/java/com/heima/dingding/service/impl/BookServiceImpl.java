@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -87,6 +88,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
             List<Book> books = page.getRecords();
             if (books != null && !books.isEmpty()) {
                 books.addAll(list);
+                //去重
+                books = books.stream().distinct().collect(Collectors.toList());
             } else {
                 books = list;
             }
