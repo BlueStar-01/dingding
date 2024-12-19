@@ -152,6 +152,9 @@ public class BookCollectionController {
     @Transactional
     @DeleteMapping("/del")
     public Result delBookCollection(@RequestBody BookCollectionDto bookCollectionDto) {
+        //检查收藏夹问题
+        bookCollectionDto.setCollectionId(checkOrCreatDeflateCollection(bookCollectionDto.getCollectionId()));
+
         //查询id
         List<BookCollection> list = bookCollectionService.lambdaQuery()
                 .eq(BookCollection::getCollectionId, bookCollectionDto.getCollectionId())

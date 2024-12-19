@@ -85,7 +85,11 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
             //太少就添加一些数据
             List<Book> list = this.list(Page.of(1, 20));
             List<Book> books = page.getRecords();
-            books.addAll(list);
+            if (books != null && !books.isEmpty()) {
+                books.addAll(list);
+            } else {
+                books = list;
+            }
             page.setRecords(books);
             page.setTotal(page.getRecords().size());
         }
