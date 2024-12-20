@@ -7,6 +7,7 @@ import com.heima.dingding.domain.Result;
 import com.heima.dingding.properties.JwtTokenProperty;
 import com.heima.dingding.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,7 +50,10 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             Long userid = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
             //存入当前请求的线程池中。
             BaseContext.setCurrentId(userid);
-        } catch (Exception e) {
+        } catch (ExpiredJwtException jwtException){
+            throw jwtException;
+        }
+        catch (Exception e) {
             e.printStackTrace();
             response.setContentType("application/json;charset=utf-8");
             response.getWriter()

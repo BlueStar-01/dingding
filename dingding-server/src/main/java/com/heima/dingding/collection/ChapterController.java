@@ -48,6 +48,9 @@ public class ChapterController {
                     .catalogId(chapter.getId())
                     .orderNum(chapter.getOrderNum()).build();
         }).toList();
+        if (vos == null || vos.size() == 0) {
+            return Result.error(MessageConstant.COL_NOT_FOUND);
+        }
         return Result.success(vos);
     }
 
@@ -63,6 +66,12 @@ public class ChapterController {
         if (id == null) {
             throw new DataException(MessageConstant.COL_NOT_FOUND);
         }
+        //添加段首空格和换行
+        StringBuilder temp = new StringBuilder();
+        temp.append("\n  ");
+        temp.append(id.getContent());
+        String s = temp.toString().replaceAll("\\n", "\n  ");
+        id.setContent(s);
         return Result.success(id);
     }
 
