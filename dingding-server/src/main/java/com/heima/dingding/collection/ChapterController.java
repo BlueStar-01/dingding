@@ -3,6 +3,7 @@ package com.heima.dingding.collection;
 import com.heima.dingdign.pojo.dto.ChapterDto;
 import com.heima.dingdign.pojo.entity.Book;
 import com.heima.dingdign.pojo.entity.Chapter;
+import com.heima.dingdign.pojo.vo.CatalogVO;
 import com.heima.dingding.constant.MessageConstant;
 import com.heima.dingding.domain.Result;
 import com.heima.dingding.exception.DataException;
@@ -29,7 +30,7 @@ public class ChapterController {
      * @return
      */
     @GetMapping("/{bookId}")
-    public Result<List<Chapter>> getChapters(@PathVariable Long bookId) {
+    public Result<List<CatalogVO>> getChapters(@PathVariable Long bookId) {
         //查询书籍是否存在
         Long count = bookService.lambdaQuery().eq(Book::getId, bookId).count();
         if (count <= 0) {
@@ -39,7 +40,30 @@ public class ChapterController {
         List<Chapter> list = chapterService.lambdaQuery()
                 .eq(Chapter::getBookId, bookId)
                 .list();
-        return Result.success(list);
+        //构建vo对象
+        List<CatalogVO> vos = list.stream().map(chapter ->
+        {
+            return CatalogVO.builder()
+                    .title(chapter.getTitle())
+                    .catalogId(chapter.getId())
+                    .orderNum(chapter.getOrderNum()).build();
+        }).toList();
+        return Result.success(vos);
+    }
+
+    /**
+     * 章节详情
+     *
+     * @param chapterId
+     * @return
+     */
+    @GetMapping("/show")
+    public Result<Chapter> showChapters(@RequestParam Long chapterId) {
+        Chapter id = chapterService.getById(chapterId);
+        if (id == null) {
+            throw new DataException(MessageConstant.COL_NOT_FOUND);
+        }
+        return Result.success(id);
     }
 
     /**
@@ -48,7 +72,7 @@ public class ChapterController {
      * @param chapter
      * @return
      */
-    @PutMapping("/{bookId}")
+    @PutMapping
     public Result addChapters(@RequestBody ChapterDto chapter) {
         if (chapter.getTitle() == null || chapter.getContent() == null || chapter.getBookId() == null) {
             throw new DataException(MessageConstant.REQUEST_PARAMETERS_ARE_MISSING);
